@@ -61,10 +61,10 @@
     }
 
     function generateMathProblem() {
-        var operationIndex = getRandomInt(1, 4000) % 4;
         var isCorrectAnswer = getRandomInt(1, 1000) <= 500;
-        var isHardMode = score > 30;
-        var operation = ["+", "\u2013", "\u00d7", "/"][operationIndex];
+        var isHardMode = score > 25;
+        var operationIndex = isHardMode ? getRandomInt(1, 5000) % 5 : getRandomInt(1, 4000) % 4;
+        var operation = ["+", "\u2013", "\u00d7", "/", "@"][operationIndex];
         var x, y, result;
 
         switch (operation) {
@@ -103,6 +103,22 @@
                     adjustment = adjustment || 1;
                     result += adjustment;
                 }
+                break;
+            case "@":
+                y = getRandomInt(1000, 7999);
+                result = getRandomInt(0, 20) * 100 + getRandomInt(0, 1);
+                // while (Math.abs((x % 100) - (y % 100)) > 1) {
+                //     y = getRandomInt(1000, 9999);
+                // }
+                x = result + y;
+                operation = "\u2013";
+                if (!isCorrectAnswer) {
+                  var minValue = Math.min(x, y, result);
+                  var adjustment = getRandomInt(-minValue, minValue);
+                  adjustment = adjustment || 1;
+                  result += adjustment;
+                }
+                break;
         }
 
         totalProblems++; // Increment total problems answered
