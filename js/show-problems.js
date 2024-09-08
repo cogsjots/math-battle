@@ -9,9 +9,9 @@
     }
 
     function generateMathProblem() {
-        var operationIndex = getRandomInt(1, 4000) % 4;
+        var operationIndex = getRandomInt(1, 5000) % 5;
         var isCorrectAnswer = getRandomInt(1, 1000) <= 500;
-        var operation = ["+", "\u2013", "\u00d7", "/"][operationIndex];
+        var operation = ["+", "\u2013", "\u00d7", "/", "@"][operationIndex];
         var x, y, result;
 
         switch (operation) {
@@ -34,6 +34,15 @@
                 result = getRandomInt(2, 13);
                 y = getRandomInt(2, 13);
                 x = result * y;
+                break;
+            case "@":
+                y = getRandomInt(1000, 7999);
+                result = getRandomInt(0, 20) * 100 + getRandomInt(0, 1);
+                // while (Math.abs((x % 100) - (y % 100)) > 1) {
+                //     y = getRandomInt(1000, 9999);
+                // }
+                x = result + y;
+                operation = "\u2013";
                 break;
         }
 
